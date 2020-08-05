@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,30 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'My-Servers';
+   serverElements = [{type: 'server', name: 'TestServer', content: 'TestContent'}];
+  //  @ViewChild('content', {static: false}) content: ElementRef;
+
+   onServerAdded(serverData: {serverName: string, serverContent: string}){
+    this.serverElements.push({
+      type: 'server',
+      name: serverData.serverName,
+      content: serverData.serverContent
+    })
+   }
+
+   onBlueprintCreated(blueprintData: {serverName: string, serverContent: string}){
+    this.serverElements.push({
+      type: 'blueprint',
+      name: blueprintData.serverName,
+      content: blueprintData.serverContent
+    })
+   }
+  OnChangeFirst()
+  {
+    this.serverElements[0].name = "Changed!";
+  }
+  OnDestroy()
+  {
+    this.serverElements.splice(0,1);
+  }
 }
